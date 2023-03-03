@@ -8,43 +8,13 @@
  * if tree is NULL, the created node must become the root node.
  * If the value is already present in the tree is ignored
  */
-bst_t *bst_insert(bst_t **tree, int value)
+bst_t *array_to_bst(int *array, size_t size)
 {
-	bst_t *aux = NULL;
+	unsigned int i;
+	bst_t *root = NULL;
 
-	if (tree == NULL)
-		return (NULL);
+	for (i = 0; i < size; i++)
+		bst_insert(&root, array[i]);
 
-	if (*tree == NULL)
-	{
-		*tree = binary_tree_node(NULL, value);
-		return (*tree);
-	}
-
-	aux = *tree;
-	while (1)
-	{
-		if (aux->n == value)
-			return (NULL);
-		if (value > aux->n)
-		{
-			if (aux->right != NULL)
-				aux = aux->right;
-			else
-			{
-				aux->right = binary_tree_node(aux, value);
-				return (aux->right);
-			}
-		}
-		else
-		{
-			if (aux->left != NULL)
-				aux = aux->left;
-			else
-			{
-				aux->left = binary_tree_node(aux, value);
-				return (aux->left);
-			}
-		}
-	}
+	return (root);
 }
